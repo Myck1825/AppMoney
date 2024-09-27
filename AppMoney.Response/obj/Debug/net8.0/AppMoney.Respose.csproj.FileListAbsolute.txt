@@ -1,0 +1,12 @@
+E:\TzProgects\PrivateBank\AppMoney\AppMoney.Respose\bin\Debug\net8.0\AppMoney.Respose.deps.json
+E:\TzProgects\PrivateBank\AppMoney\AppMoney.Respose\bin\Debug\net8.0\AppMoney.Respose.dll
+E:\TzProgects\PrivateBank\AppMoney\AppMoney.Respose\bin\Debug\net8.0\AppMoney.Respose.pdb
+E:\TzProgects\PrivateBank\AppMoney\AppMoney.Respose\obj\Debug\net8.0\AppMoney.Respose.GeneratedMSBuildEditorConfig.editorconfig
+E:\TzProgects\PrivateBank\AppMoney\AppMoney.Respose\obj\Debug\net8.0\AppMoney.Respose.AssemblyInfoInputs.cache
+E:\TzProgects\PrivateBank\AppMoney\AppMoney.Respose\obj\Debug\net8.0\AppMoney.Respose.AssemblyInfo.cs
+E:\TzProgects\PrivateBank\AppMoney\AppMoney.Respose\obj\Debug\net8.0\AppMoney.Respose.csproj.CoreCompileInputs.cache
+E:\TzProgects\PrivateBank\AppMoney\AppMoney.Respose\obj\Debug\net8.0\AppMoney.Respose.dll
+E:\TzProgects\PrivateBank\AppMoney\AppMoney.Respose\obj\Debug\net8.0\refint\AppMoney.Respose.dll
+E:\TzProgects\PrivateBank\AppMoney\AppMoney.Respose\obj\Debug\net8.0\AppMoney.Respose.pdb
+E:\TzProgects\PrivateBank\AppMoney\AppMoney.Respose\obj\Debug\net8.0\ref\AppMoney.Respose.dll
+E:\TzProgects\PrivateBank\AppMoney\AppMoney.Respose\obj\Debug\net8.0\AppMoney.Respose.csproj.AssemblyReference.cache

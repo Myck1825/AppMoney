@@ -1,0 +1,94 @@
+secrets:
+  ConnectionString.MSSQL:
+    file: ConnectionString.MSSQL.txt
+
+
+services:
+  mssqlserver:
+    container_name: mssqlserver-container
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    ports:
+      - "1433:1433"
+
+
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+
+
+
+  appmoney:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - DbOptions.DbType=MSSQL
+      - RabbitMQ.HostName=localhost
+      - RabbitMQ.UserName=guest
+      - RabbitMQ.Password=guest
+      - Serilog.Using=Serilog.Sinks.Console,Serilog.Sinks.File
+      - Serilog.MinimumLevel=Information
+      - Serilog.WriteTo:[{'Name':'Console'}, {'Name':'File', 'Args':{'path':'Logs/log.txt'}}]
+      - Serilog.Enrich=FromLogContext,WithMachineName,WithThreadId
+      - Serilog.Properties.Application=AppMoney
+      - AllowedHosts=*
+    secrets:
+      - ConnectionString.MSSQL
+    ports:
+      - "5000:8080"
+    depends_on:
+      # - appmoney.model
+      # - appmoney.database
+      # - appmoney.response
+      # - appmoney.worker
+      - rabbitmq 
+      - mssqlserver
+
+
+  # appmoney.model:
+  #   build: 
+  #     context: ./AppMoney.Model
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "5000:8080"
+  #   depends_on:
+  #     - appmoney.database
+  #     - appmoney.response
+
+
+  # appmoney.database:
+  #   build: 
+  #     context: ./AppMoney.Database
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "5000:8080"
+  #   depends_on:
+  #     - appmoney.response
+  #     - mssqlserver
+
+
+
+  # appmoney.response:
+  #   build: 
+  #     context: ./AppMoney.Response
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "5000:8080"
+
+
+
+  # appmoney.worker:
+  #   build: 
+  #     context: ./AppMoney.Worker
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "5005:8080"
+  #   depends_on:
+  #     - appmoney.model

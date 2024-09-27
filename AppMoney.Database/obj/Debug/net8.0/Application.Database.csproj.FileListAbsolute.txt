@@ -1,0 +1,12 @@
+E:\TzProgects\PrivateBank\AppMoney\Application.Database\bin\Debug\net8.0\Application.Database.deps.json
+E:\TzProgects\PrivateBank\AppMoney\Application.Database\bin\Debug\net8.0\Application.Database.dll
+E:\TzProgects\PrivateBank\AppMoney\Application.Database\bin\Debug\net8.0\Application.Database.pdb
+E:\TzProgects\PrivateBank\AppMoney\Application.Database\obj\Debug\net8.0\Application.Database.csproj.AssemblyReference.cache
+E:\TzProgects\PrivateBank\AppMoney\Application.Database\obj\Debug\net8.0\Application.Database.GeneratedMSBuildEditorConfig.editorconfig
+E:\TzProgects\PrivateBank\AppMoney\Application.Database\obj\Debug\net8.0\Application.Database.AssemblyInfoInputs.cache
+E:\TzProgects\PrivateBank\AppMoney\Application.Database\obj\Debug\net8.0\Application.Database.AssemblyInfo.cs
+E:\TzProgects\PrivateBank\AppMoney\Application.Database\obj\Debug\net8.0\Application.Database.csproj.CoreCompileInputs.cache
+E:\TzProgects\PrivateBank\AppMoney\Application.Database\obj\Debug\net8.0\Application.Database.dll
+E:\TzProgects\PrivateBank\AppMoney\Application.Database\obj\Debug\net8.0\refint\Application.Database.dll
+E:\TzProgects\PrivateBank\AppMoney\Application.Database\obj\Debug\net8.0\Application.Database.pdb
+E:\TzProgects\PrivateBank\AppMoney\Application.Database\obj\Debug\net8.0\ref\Application.Database.dll
