@@ -1,0 +1,35 @@
+# Ignore user secrets
+UserSecrets/
+
+# Ignore connection string files
+ConnectionString.MSSQL.txt
+
+# Ignore build outputs
+bin/
+obj/
+
+# Ignore Visual Studio specific files
+.vs/
+*.suo
+*.user
+*.userprefs
+*.sln.docstates
+
+# Ignore temporary files
+*.tmp
+*.log
+
+# Ignore NuGet packages
+*.nupkg
+**/packages/*
+
+# Ignore published output
+publish/
+
+# Ignore local settings
+appsettings.Development.json
+appsettings.*.json
+
+# Ignore database files
+*.mdf
+*.ldf
