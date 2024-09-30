@@ -8,6 +8,7 @@ using AppMoney.Database.Enums;
 using AppMoney.Database.Mapper;
 using AppMoney.Database.Options;
 using AppMoney.ExceptionHandlers.Middleware;
+using AppMoney.HandleDockerSecrets;
 using AppMoney.Middleware.IpAddressHandler;
 using AppMoney.Model.Applications.Commands.CreateApplicationCommand;
 using AppMoney.Model.Applications.Queries.GetApplicationQuery;
@@ -17,12 +18,14 @@ using AppMoney.Model.Mapper;
 using AppMoney.Model.RabbitMQ;
 using AppMoney.Model.RabbitMQ.Connection;
 using AppMoney.Model.RabbitMQ.Publisher;
+using AppMoney.Options;
 using AppMoney.Respose.ApiResponse;
 using AppMoney.Respose.Applications;
 using AutoMapper;
 using MassTransit;
 using MediatR;
 using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.Extensions.Configuration;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -31,6 +34,8 @@ builder.Services.AddExceptionHandler<ValidationExceptionHandler>();
 builder.Services.AddExceptionHandler<NotFoundExceptionHandler>();
 builder.Services.AddExceptionHandler<AlreadyExceptionHandler>();
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+
+builder.Configuration.AddEnvironmentVariables();
 
 // Add services to the container.
 builder.Services.AddProblemDetails();
@@ -52,10 +57,20 @@ builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(Cre
 builder.Services.Configure<RabbitMQOption>(builder.Configuration.GetSection("RabbitMQ"));
 builder.Services.AddHostedService<ApplicationConsumerService>();
 
-//var connectionString = builder.Configuration.GetValue<string>("ConnectionString");
+var dockerSecrets = new DockerSecrets
+{
+    Path = builder.Configuration.GetValue<string>($"{nameof(DockerSecrets)}:{nameof(DockerSecrets.Path)}")!
+};
+builder.Configuration.Sources.Add(new SecretsConfigurationSource(dockerSecrets));
+
 builder.Services.Configure<DbOptions>(c=>
 {
-    c.ConnectionString = builder.Configuration.GetValue<string>("ConnectionString")!;
+    c.ConnectionString = new ConnectionString
+    {
+        MSConnectionString = builder.Configuration[nameof(ConnectionString.MSConnectionString)]!,
+        PostgreConnectionString = builder.Configuration[nameof(ConnectionString.PostgreConnectionString)]!
+    };
+
     c.DbType = builder.Configuration.GetValue<DatabaseType>("DbOptions:DbType");
 });
 

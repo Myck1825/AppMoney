@@ -3895,3 +3895,114 @@ System.ComponentModel.DataAnnotations.ValidationException: DepartmentAddress
 2024-09-27 16:00:12.828 +03:00 [INF] Request finished HTTP/2 GET https://localhost:44333/_vs/browserLink - 200 null text/javascript; charset=UTF-8 39.7385ms
 2024-09-27 16:00:12.906 +03:00 [INF] Request starting HTTP/2 GET https://localhost:44333/swagger/v1/swagger.json - null null
 2024-09-27 16:00:13.031 +03:00 [INF] Request finished HTTP/2 GET https://localhost:44333/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 125.4001ms
+2024-09-29 02:56:42.128 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-09-29 02:56:42.213 +03:00 [INF] Hosting environment: Development
+2024-09-29 02:56:42.214 +03:00 [INF] Content root path: E:\TzProgects\PrivateBank\AppMoney\AppMoney
+2024-09-29 02:56:42.224 +03:00 [INF] Request starting HTTP/2 GET https://localhost:44333/swagger/index.html - null null
+2024-09-29 02:56:43.165 +03:00 [INF] Request finished HTTP/2 GET https://localhost:44333/swagger/index.html - 200 null text/html;charset=utf-8 953.2544ms
+2024-09-29 02:56:43.173 +03:00 [INF] Request starting HTTP/2 GET https://localhost:44333/_framework/aspnetcore-browser-refresh.js - null null
+2024-09-29 02:56:43.180 +03:00 [INF] Request starting HTTP/2 GET https://localhost:44333/_vs/browserLink - null null
+2024-09-29 02:56:43.188 +03:00 [INF] Request finished HTTP/2 GET https://localhost:44333/_framework/aspnetcore-browser-refresh.js - 200 13752 application/javascript; charset=utf-8 10.0696ms
+2024-09-29 02:56:43.277 +03:00 [INF] Request finished HTTP/2 GET https://localhost:44333/_vs/browserLink - 200 null text/javascript; charset=UTF-8 96.2846ms
+2024-09-29 02:56:43.373 +03:00 [INF] Request starting HTTP/2 GET https://localhost:44333/swagger/v1/swagger.json - null null
+2024-09-29 02:56:43.619 +03:00 [INF] Request finished HTTP/2 GET https://localhost:44333/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 245.7756ms
+2024-09-29 02:57:04.773 +03:00 [INF] Request starting HTTP/2 GET https://localhost:44333/api/Application/Get?appId=3fa85f64-5717-4562-b3fc-2c963f66afa6 - null null
+2024-09-29 02:57:04.791 +03:00 [INF] Executing endpoint 'AppMoney.Controllers.ApplicationController.GetAsync (AppMoney)'
+2024-09-29 02:57:04.839 +03:00 [INF] Route matched with {action = "Get", controller = "Application"}. Executing controller action with signature System.Threading.Tasks.Task`1[AppMoney.Respose.ApiResponse.ServerResponse`1[AppMoney.Respose.Applications.ApplicationResponse]] GetAsync(System.Guid) on controller AppMoney.Controllers.ApplicationController (AppMoney).
+2024-09-29 02:57:04.886 +03:00 [INF] Begin command id: fb8a19c8-4707-4fa1-b60f-7fd35dca3542, command name: GetByIdApplicationQuery, command json {"Id":"3fa85f64-5717-4562-b3fc-2c963f66afa6"}
+2024-09-29 02:57:11.517 +03:00 [ERR] Record Not Found
+AppMoney.Respose.CustomException.NotFoundException: Record Not Found
+   at AppModey.Database.Repository.ApplicationRepository.<>c__DisplayClass5_0.<<GetByIdAsync>b__0>d.MoveNext() in E:\TzProgects\PrivateBank\AppMoney\AppMoney.Database\Repository\ApplicationRepository.cs:line 72
+--- End of stack trace from previous location ---
+   at AppModey.Database.Repository.RepositoryBase.BaseInvokeAsync[T](Func`3 func, Object request) in E:\TzProgects\PrivateBank\AppMoney\AppMoney.Database\Repository\RepositoryBase.cs:line 42
+2024-09-29 02:57:11.636 +03:00 [ERR] command id: fb8a19c8-4707-4fa1-b60f-7fd35dca3542, command name: GetByIdApplicationQuery, command json {"Id":"3fa85f64-5717-4562-b3fc-2c963f66afa6"}exception: AppMoney.Respose.CustomException.NotFoundException: Record Not Found
+   at AppModey.Database.Mapper.DbResultToServerResponseMapper.HandleException[T](ServerResponse`1 destination) in E:\TzProgects\PrivateBank\AppMoney\AppMoney.Database\Mapper\DbResultToServerResponseMapper.cs:line 27
+   at AppModey.Database.Mapper.DbResultToServerResponseMapper.<.ctor>b__0_1(DbResult`1 src, ServerResponse`1 dest) in E:\TzProgects\PrivateBank\AppMoney\AppMoney.Database\Mapper\DbResultToServerResponseMapper.cs:line 17
+   at lambda_method10(Closure, Object, ServerResponse`1, ResolutionContext)
+   at AutoMapper.Mapper.MapCore[TSource,TDestination](TSource source, TDestination destination, ResolutionContext context, Type sourceType, Type destinationType, MemberMap memberMap)
+   at AutoMapper.Mapper.Map[TSource,TDestination](TSource source, TDestination destination)
+   at AutoMapper.Mapper.Map[TDestination](Object source)
+   at AppMoney.Model.Applications.Queries.GetApplicationQuery.GetByIdApplicationQueryHandler.Handle(GetByIdApplicationQuery request, CancellationToken cancellationToken) in E:\TzProgects\PrivateBank\AppMoney\AppMoney.Model\Applications\Queries\GetApplicationQuery\GetByIdApplicationQueryHandler.cs:line 32
+   at AppMoney.Model.Decorator.CommandHandleDecorator`2.Handle(TCommand request, CancellationToken cancellationToken) in E:\TzProgects\PrivateBank\AppMoney\AppMoney.Model\Decorator\CommandHandleDecorator.cs:line 35
+2024-09-29 02:57:11.719 +03:00 [INF] Executed action AppMoney.Controllers.ApplicationController.GetAsync (AppMoney) in 6873.316ms
+2024-09-29 02:57:11.721 +03:00 [INF] Executed endpoint 'AppMoney.Controllers.ApplicationController.GetAsync (AppMoney)'
+2024-09-29 02:57:11.829 +03:00 [ERR] Error retrieving client IP address.
+AppMoney.Respose.CustomException.NotFoundException: Record Not Found
+   at AppModey.Database.Mapper.DbResultToServerResponseMapper.HandleException[T](ServerResponse`1 destination) in E:\TzProgects\PrivateBank\AppMoney\AppMoney.Database\Mapper\DbResultToServerResponseMapper.cs:line 27
+   at AppModey.Database.Mapper.DbResultToServerResponseMapper.<.ctor>b__0_1(DbResult`1 src, ServerResponse`1 dest) in E:\TzProgects\PrivateBank\AppMoney\AppMoney.Database\Mapper\DbResultToServerResponseMapper.cs:line 17
+   at lambda_method10(Closure, Object, ServerResponse`1, ResolutionContext)
+   at AutoMapper.Mapper.MapCore[TSource,TDestination](TSource source, TDestination destination, ResolutionContext context, Type sourceType, Type destinationType, MemberMap memberMap)
+   at AutoMapper.Mapper.Map[TSource,TDestination](TSource source, TDestination destination)
+   at AutoMapper.Mapper.Map[TDestination](Object source)
+   at AppMoney.Model.Applications.Queries.GetApplicationQuery.GetByIdApplicationQueryHandler.Handle(GetByIdApplicationQuery request, CancellationToken cancellationToken) in E:\TzProgects\PrivateBank\AppMoney\AppMoney.Model\Applications\Queries\GetApplicationQuery\GetByIdApplicationQueryHandler.cs:line 32
+   at AppMoney.Model.Decorator.CommandHandleDecorator`2.Handle(TCommand request, CancellationToken cancellationToken) in E:\TzProgects\PrivateBank\AppMoney\AppMoney.Model\Decorator\CommandHandleDecorator.cs:line 35
+   at AppMoney.Controllers.ApplicationController.GetAsync(Guid appId) in E:\TzProgects\PrivateBank\AppMoney\AppMoney\Controllers\ApplicationController.cs:line 44
+   at lambda_method5(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at AppMoney.Middleware.IpAddressHandler.IpAddressHandlerMiddleware.InvokeAsync(HttpContext context) in E:\TzProgects\PrivateBank\AppMoney\AppMoney\Middleware\IpAddressHandler\IpAddressHandlerMiddleware.cs:line 33
+2024-09-29 02:57:11.929 +03:00 [ERR] An unhandled exception has occurred while executing the request.
+AppMoney.Respose.CustomException.NotFoundException: Record Not Found
+   at AppModey.Database.Mapper.DbResultToServerResponseMapper.HandleException[T](ServerResponse`1 destination) in E:\TzProgects\PrivateBank\AppMoney\AppMoney.Database\Mapper\DbResultToServerResponseMapper.cs:line 27
+   at AppModey.Database.Mapper.DbResultToServerResponseMapper.<.ctor>b__0_1(DbResult`1 src, ServerResponse`1 dest) in E:\TzProgects\PrivateBank\AppMoney\AppMoney.Database\Mapper\DbResultToServerResponseMapper.cs:line 17
+   at lambda_method10(Closure, Object, ServerResponse`1, ResolutionContext)
+   at AutoMapper.Mapper.MapCore[TSource,TDestination](TSource source, TDestination destination, ResolutionContext context, Type sourceType, Type destinationType, MemberMap memberMap)
+   at AutoMapper.Mapper.Map[TSource,TDestination](TSource source, TDestination destination)
+   at AutoMapper.Mapper.Map[TDestination](Object source)
+   at AppMoney.Model.Applications.Queries.GetApplicationQuery.GetByIdApplicationQueryHandler.Handle(GetByIdApplicationQuery request, CancellationToken cancellationToken) in E:\TzProgects\PrivateBank\AppMoney\AppMoney.Model\Applications\Queries\GetApplicationQuery\GetByIdApplicationQueryHandler.cs:line 32
+   at AppMoney.Model.Decorator.CommandHandleDecorator`2.Handle(TCommand request, CancellationToken cancellationToken) in E:\TzProgects\PrivateBank\AppMoney\AppMoney.Model\Decorator\CommandHandleDecorator.cs:line 35
+   at AppMoney.Controllers.ApplicationController.GetAsync(Guid appId) in E:\TzProgects\PrivateBank\AppMoney\AppMoney\Controllers\ApplicationController.cs:line 44
+   at lambda_method5(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at AppMoney.Middleware.IpAddressHandler.IpAddressHandlerMiddleware.InvokeAsync(HttpContext context) in E:\TzProgects\PrivateBank\AppMoney\AppMoney\Middleware\IpAddressHandler\IpAddressHandlerMiddleware.cs:line 33
+   at Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddlewareImpl.<Invoke>g__Awaited|10_0(ExceptionHandlerMiddlewareImpl middleware, HttpContext context, Task task)
+2024-09-29 02:57:11.939 +03:00 [ERR] Not Found exception: AppMoney.Respose.CustomException.NotFoundException: Record Not Found
+   at AppModey.Database.Mapper.DbResultToServerResponseMapper.HandleException[T](ServerResponse`1 destination) in E:\TzProgects\PrivateBank\AppMoney\AppMoney.Database\Mapper\DbResultToServerResponseMapper.cs:line 27
+   at AppModey.Database.Mapper.DbResultToServerResponseMapper.<.ctor>b__0_1(DbResult`1 src, ServerResponse`1 dest) in E:\TzProgects\PrivateBank\AppMoney\AppMoney.Database\Mapper\DbResultToServerResponseMapper.cs:line 17
+   at lambda_method10(Closure, Object, ServerResponse`1, ResolutionContext)
+   at AutoMapper.Mapper.MapCore[TSource,TDestination](TSource source, TDestination destination, ResolutionContext context, Type sourceType, Type destinationType, MemberMap memberMap)
+   at AutoMapper.Mapper.Map[TSource,TDestination](TSource source, TDestination destination)
+   at AutoMapper.Mapper.Map[TDestination](Object source)
+   at AppMoney.Model.Applications.Queries.GetApplicationQuery.GetByIdApplicationQueryHandler.Handle(GetByIdApplicationQuery request, CancellationToken cancellationToken) in E:\TzProgects\PrivateBank\AppMoney\AppMoney.Model\Applications\Queries\GetApplicationQuery\GetByIdApplicationQueryHandler.cs:line 32
+   at AppMoney.Model.Decorator.CommandHandleDecorator`2.Handle(TCommand request, CancellationToken cancellationToken) in E:\TzProgects\PrivateBank\AppMoney\AppMoney.Model\Decorator\CommandHandleDecorator.cs:line 35
+   at AppMoney.Controllers.ApplicationController.GetAsync(Guid appId) in E:\TzProgects\PrivateBank\AppMoney\AppMoney\Controllers\ApplicationController.cs:line 44
+   at lambda_method5(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.AwaitableObjectResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at AppMoney.Middleware.IpAddressHandler.IpAddressHandlerMiddleware.InvokeAsync(HttpContext context) in E:\TzProgects\PrivateBank\AppMoney\AppMoney\Middleware\IpAddressHandler\IpAddressHandlerMiddleware.cs:line 33
+   at Microsoft.AspNetCore.Diagnostics.ExceptionHandlerMiddlewareImpl.<Invoke>g__Awaited|10_0(ExceptionHandlerMiddlewareImpl middleware, HttpContext context, Task task)
+2024-09-29 02:57:11.958 +03:00 [INF] Request finished HTTP/2 GET https://localhost:44333/api/Application/Get?appId=3fa85f64-5717-4562-b3fc-2c963f66afa6 - 404 null application/json; charset=utf-8 7185.0243ms

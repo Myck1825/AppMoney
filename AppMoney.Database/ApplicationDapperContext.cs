@@ -18,15 +18,15 @@ namespace AppMoney.Database
 
         public IDbConnection CreateConnection()
         {
-            IDbConnection connection = new SqlConnection(_options.ConnectionString);
+            IDbConnection connection;
 
             switch (_options.DbType)
             {
                 case DatabaseType.MSSQL:
-                    connection = new SqlConnection(_options.ConnectionString);
+                    connection = new SqlConnection(_options.ConnectionString.MSConnectionString);
                     break;
                 case DatabaseType.PostgreSQL:
-                    connection = new NpgsqlConnection(_options.ConnectionString);
+                    connection = new NpgsqlConnection(_options.ConnectionString.PostgreConnectionString);
                     break;
                 default:
                     throw new ArgumentException($"{nameof(_options.DbType)} not found");

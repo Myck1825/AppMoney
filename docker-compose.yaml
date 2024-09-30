@@ -1,6 +1,15 @@
 secrets:
-  ConnectionString.MSSQL:
-    file: ConnectionString.MSSQL.txt
+  MSConnectionString:
+    external: true
+    file: ./run/secrets/MSConnectionString.txt
+  PostgreConnectionString:
+    external: true
+    file: ./run/secrets/PostgreConnectionString.txt
+
+networks:
+  appmoney_network:
+    external: false
+    driver: bridge
 
 
 services:
@@ -14,9 +23,16 @@ services:
 
   rabbitmq:
     image: rabbitmq:3-management
+    hostname: "rabbitmq-1"
     ports:
       - "5672:5672"
       - "15672:15672"
+    networks:
+      - appmoney_network
+    volumes:
+      - ./etc/rabbitmq/conf:/etc/rabbitmq/
+      - ./etc/rabbitmq/data/:/var/lib/rabbitmq/
+      - ./etc/rabbitmq/logs/:/var/log/rabbitmq/
     environment:
       - RABBITMQ_DEFAULT_USER=guest
       - RABBITMQ_DEFAULT_PASS=guest
@@ -27,10 +43,13 @@ services:
     build: 
       context: .
       dockerfile: Dockerfile
+    image: appmoney-appmoney:latest
+    networks:
+      - appmoney_network
     environment:
-      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_ENVIRONMENT=Development
       - DbOptions.DbType=MSSQL
-      - RabbitMQ.HostName=localhost
+      - RabbitMQ.HostName=rabbitmq
       - RabbitMQ.UserName=guest
       - RabbitMQ.Password=guest
       - Serilog.Using=Serilog.Sinks.Console,Serilog.Sinks.File
@@ -39,56 +58,59 @@ services:
       - Serilog.Enrich=FromLogContext,WithMachineName,WithThreadId
       - Serilog.Properties.Application=AppMoney
       - AllowedHosts=*
+    deploy:
+       replicas: 1
+       restart_policy:
+         condition: on-failure
+         max_attempts: 3
     secrets:
-      - ConnectionString.MSSQL
+      - MSConnectionString
+      - PostgreConnectionString
     ports:
       - "5000:8080"
     depends_on:
-      # - appmoney.model
-      # - appmoney.database
-      # - appmoney.response
-      # - appmoney.worker
+      - appmoney-model
+      - appmoney-database
+      - appmoney-response
+      - appmoney-worker
       - rabbitmq 
+
+
+  appmoney-model:
+    build: 
+      context: ./AppMoney.Model
+      dockerfile: Dockerfile
+    image: appmoney-appmoney.model:latest
+    depends_on:
+      - appmoney-database
+      - appmoney-response
+
+
+  appmoney-database:
+    build: 
+      context: ./AppMoney.Database
+      dockerfile: Dockerfile
+    image: appmoney-appmoney.database:latest
+    depends_on:
+      - appmoney-response
       - mssqlserver
 
 
-  # appmoney.model:
-  #   build: 
-  #     context: ./AppMoney.Model
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - "5000:8080"
-  #   depends_on:
-  #     - appmoney.database
-  #     - appmoney.response
 
-
-  # appmoney.database:
-  #   build: 
-  #     context: ./AppMoney.Database
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - "5000:8080"
-  #   depends_on:
-  #     - appmoney.response
-  #     - mssqlserver
+  appmoney-response:
+    build: 
+      context: ./AppMoney.Response
+      dockerfile: Dockerfile
+    image: appmoney-appmoney.response:latest
 
 
 
-  # appmoney.response:
-  #   build: 
-  #     context: ./AppMoney.Response
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - "5000:8080"
-
-
-
-  # appmoney.worker:
-  #   build: 
-  #     context: ./AppMoney.Worker
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - "5005:8080"
-  #   depends_on:
-  #     - appmoney.model
+  appmoney-worker:
+    build: 
+      context: ./AppMoney.Worker
+      dockerfile: Dockerfile
+    image: appmoney-appmoney.worker:latest
+    ports:
+      - "5001:8085"
+    depends_on:
+      - appmoney-model

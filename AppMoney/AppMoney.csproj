@@ -20,12 +20,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="ConnectionString.MSSQL.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\AppMoney.Database\AppMoney.Database.csproj" />
     <ProjectReference Include="..\AppMoney.Model\AppMoney.Model.csproj" />
     <ProjectReference Include="..\AppMoney.Worker\AppMoney.Worker.csproj" />
