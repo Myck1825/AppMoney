@@ -1,28 +1,21 @@
-CREATE DATABASE "BankDb"
-    WITH
-    OWNER = postgres
-    ENCODING = 'UTF8'
-    LC_COLLATE = 'Ukrainian_Ukraine.1251'
-    LC_CTYPE = 'Ukrainian_Ukraine.1251'
-    LOCALE_PROVIDER = 'libc'
-    TABLESPACE = pg_default
-    CONNECTION LIMIT = -1
-    IS_TEMPLATE = False;
+--CREATE DATABASE "BankDb"
+--    WITH
+--    OWNER = postgres
+--    ENCODING = 'UTF8'
+--    LC_COLLATE = 'Ukrainian_Ukraine.1251'
+--    LC_CTYPE = 'Ukrainian_Ukraine.1251'
+--    LOCALE_PROVIDER = 'libc'
+--    TABLESPACE = pg_default
+--    CONNECTION LIMIT = -1
+--    IS_TEMPLATE = False;
 
-	--USE master
---GO
---ALTER DATABASE BankDb
---SET OFFLINE WITH ROLLBACK IMMEDIATE
---GO
---CREATE DATABASE BankDb;
+
 
 --USE [BankDb];
 --GO
 
-
 DO $$
 BEGIN
-
 	CREATE TABLE IF NOT EXISTS Clients(
 	ID UUID PRIMARY KEY DEFAULT gen_random_uuid(),
 	LastName VARCHAR(20) NOT NULL,
@@ -104,11 +97,10 @@ BEGIN
 	VALUES ('Pupkin', N'Vasiliy');
 
 	
-	COMMIT; 
 EXCEPTION
     WHEN undefined_table THEN
-        RAISE NOTICE 'An error occurred: table does not exist';
         ROLLBACK; 
+		RAISE NOTICE 'An error occurred: table does not exist';
     WHEN unique_violation THEN
         RAISE NOTICE 'Unique constraint violation: %', SQLERRM;
         ROLLBACK; 
@@ -116,3 +108,5 @@ EXCEPTION
         RAISE NOTICE 'An unexpected error occurred: %', SQLERRM;
         ROLLBACK; 
 END $$;
+
+COMMIT;

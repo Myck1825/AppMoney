@@ -5,7 +5,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 CREATE OR ALTER PROCEDURE sp_GetApplicationByID_Procedure 
-	@id UNIQUEIDENTIFIER
+	@appId UNIQUEIDENTIFIER
 	
 AS
 BEGIN
@@ -15,7 +15,7 @@ inner join Currencies as c
 on c.ID = app.CurrencyID
 inner join Statuses as s
 on s.ID = app.StatusID
-WHERE app.ID = @id
+WHERE app.ID = @appId
 
 END
 GO

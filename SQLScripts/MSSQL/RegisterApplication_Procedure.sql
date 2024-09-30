@@ -10,7 +10,7 @@ CREATE OR ALTER PROCEDURE sp_RegisterApplication_Procedure
 	@department_address nvarchar(100),
 	@amount money, 
 	@currency nvarchar(10),
-	@id UNIQUEIDENTIFIER OUTPUT,
+	@appid UNIQUEIDENTIFIER OUTPUT,
 	@error_code int OUTPUT,
 	@error_message nvarchar(100) OUTPUT
 	
@@ -85,7 +85,7 @@ BEGIN TRY
 		RAISERROR(@error_format, 16, 1, @error_message, @error_code);
 	END
 	
-	-- Get id currency.  If not exist -> throw exception.
+	-- Get id status.  If not exist -> throw exception.
 	DECLARE @status_id UNIQUEIDENTIFIER
 	SET @status_id = (select ID from Statuses where IsDefault = 1);
 	
