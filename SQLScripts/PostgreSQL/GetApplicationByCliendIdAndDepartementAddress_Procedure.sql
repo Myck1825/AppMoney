@@ -13,7 +13,7 @@ BEGIN
 	FROM Departments AS d 
 	WHERE d.AddressStr = department_address
 	AND department_address IS NOT NULL;
-				   
+
 	with clientIpId  
 	as
 	(select cl.ID, cip.ID AS client_ip_id from Clients as cl

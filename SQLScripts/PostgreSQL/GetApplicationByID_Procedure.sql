@@ -1,20 +1,12 @@
-CREATE
-OR REPLACE PROCEDURE "sp_GetApplicationByID_Procedure" (appId UUID) LANGUAGE PLPGSQL AS $$
-DECLARE
-    app_id UUID;
-    amount decimal;
-    currency TEXT;
-    status TEXT;
+CREATE OR REPLACE FUNCTION sp_GetApplicationByID_Procedure(appId UUID)
+RETURNS TABLE(app_id UUID, amount DECIMAL, currency varchar(10), status varchar(20)) 
+LANGUAGE PLPGSQL AS $$
 BEGIN
-    SELECT app.ID, app.Amount::decimal AS amount, c.TypeName, s.TypeName FROM Applications as app
-	INTO app_id, amount, currency, status
-	inner join Currencies as c
-	on c.ID = app.CurrencyID
-	inner join Statuses as s
-	on s.ID = app.StatusID
-	WHERE app.ID = appId;
-
-	RAISE NOTICE 'ID: %, Amount: %, Currency: %, Status: %', app_id, amount, currency, status;
-	RETURN;
+    RETURN QUERY
+    SELECT app.ID, app.Amount::DECIMAL AS amount, c.TypeName AS currency, s.TypeName AS status
+    FROM Applications AS app
+    INNER JOIN Currencies AS c ON c.ID = app.CurrencyID
+    INNER JOIN Statuses AS s ON s.ID = app.StatusID
+    WHERE app.ID = appId;
 END;
 $$;

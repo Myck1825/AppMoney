@@ -4,8 +4,10 @@ using AppMoney.Respose.CustomException;
 using AppMoney.Respose.Enums;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Logging;
+using Npgsql;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
+using System.Data.Common;
 using System.Text.RegularExpressions;
 
 namespace AppModey.Database.Repository
@@ -15,6 +17,7 @@ namespace AppModey.Database.Repository
         protected const string ModelIsNotValidErrorMessage = "Model Is Not Valid.";
         protected readonly IDbConnectionFactory _context;
         private readonly ILogger<RepositoryBase> _logger;
+        private readonly string _pattern = @"Message: (?<message>.*?)\. Error Code: (?<errorCode>\d+)";
 
 
         public RepositoryBase(IDbConnectionFactory context,
@@ -42,7 +45,7 @@ namespace AppModey.Database.Repository
                         await func(dbResult, connection);
                     }
                 }
-                catch (SqlException ex)
+                catch (DbException ex)
                 {
                     _logger.LogError(ex, ex.Message);
 
@@ -87,27 +90,27 @@ namespace AppModey.Database.Repository
         }
 
         #region -- Private helper --
-        public int? ExtractErrorCode(string message)
+        private int? ExtractErrorCode(string message)
         {
             if (string.IsNullOrWhiteSpace(message))
                 return null;
 
-            var match = Regex.Match(message, @"Error Code:\s*(\d+)");
+            var match = Regex.Match(message, _pattern);
             
             int code;
 
-            return match.Success ? 
-                int.TryParse(match.Groups[1].Value, out code) ? code : null 
+            return match.Success ?
+                int.TryParse(match.Groups["errorCode"].Value, out code) ? code : null 
                 : null;
         }
 
-        public string ExtractMessage(string message)
+        private string ExtractMessage(string message)
         {
             if (string.IsNullOrWhiteSpace(message))
                 return string.Empty;
 
-            var match = Regex.Match(message, @"Message:\s*Message:\s*(.+?)\s*Error Code:");
-            return match.Success ? match.Groups[1].Value : string.Empty;
+            var match = Regex.Match(message, _pattern);
+            return match.Success ? match.Groups["message"].Value : string.Empty;
         }
 
         private List<ValidationResult> CheckRequest(object? request)
