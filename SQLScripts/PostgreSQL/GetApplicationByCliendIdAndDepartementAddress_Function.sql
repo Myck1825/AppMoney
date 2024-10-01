@@ -1,5 +1,5 @@
 CREATE OR REPLACE FUNCTION sp_GetApplicationByCliendIdAndDepartementAddress_Procedure(client_id UUID, department_address VARCHAR(100))
-RETURNS TABLE(app_id UUID, amount DECIMAL, currency VARCHAR(10), status VARCHAR(20)) 
+RETURNS TABLE(Id UUID, amount DECIMAL, currency VARCHAR(10), status VARCHAR(20)) 
 LANGUAGE PLPGSQL AS $$
 DECLARE
     department_id UUID;

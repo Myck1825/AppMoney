@@ -7,6 +7,7 @@ using AppMoney.Database;
 using AppMoney.Database.Enums;
 using AppMoney.Database.Mapper;
 using AppMoney.Database.Options;
+using AppMoney.Database.SqlCommandFactory;
 using AppMoney.ExceptionHandlers.Middleware;
 using AppMoney.HandleDockerSecrets;
 using AppMoney.Middleware.IpAddressHandler;
@@ -67,8 +68,8 @@ builder.Services.Configure<DbOptions>(c=>
 {
     c.ConnectionString = new ConnectionString
     {
-        MSConnectionString = builder.Configuration[nameof(ConnectionString.MSConnectionString)]!,
-        PostgreConnectionString = builder.Configuration[nameof(ConnectionString.PostgreConnectionString)]!
+        MSConnectionString = builder.Configuration.GetValue<string>("MSConnectionString")!,//builder.Configuration[nameof(ConnectionString.MSConnectionString)]!,
+        PostgreConnectionString = builder.Configuration.GetValue<string>("PostgreConnectionString")!//builder.Configuration[nameof(ConnectionString.PostgreConnectionString)]!
     };
 
     c.DbType = builder.Configuration.GetValue<DatabaseType>("DbOptions:DbType");
@@ -79,6 +80,11 @@ builder.Services.AddScoped(typeof(IRabbitMQPublisher), typeof(RabbitMQPublisher)
 builder.Services.AddSingleton<INotifyCosumer, NotifyCosumer>();
 
 builder.Services.AddTransient<IApplicationRepository, ApplicationRepository>();
+
+builder.Services.AddSingleton<ISqlComandFactory, SqlComandFactory>();
+builder.Services.AddTransient<IApplicationSqlCommand, ApplicationMsCommand>();
+builder.Services.AddTransient<IApplicationSqlCommand, ApplicationPsCommand>();
+
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddSingleton<IDbConnectionFactory, ApplicationDapperContext>();

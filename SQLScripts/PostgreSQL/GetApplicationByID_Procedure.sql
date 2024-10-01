@@ -1,5 +1,5 @@
 CREATE OR REPLACE FUNCTION sp_GetApplicationByID_Procedure(appId UUID)
-RETURNS TABLE(app_id UUID, amount DECIMAL, currency varchar(10), status varchar(20)) 
+RETURNS TABLE(Id UUID, amount DECIMAL, currency varchar(10), status varchar(20)) 
 LANGUAGE PLPGSQL AS $$
 BEGIN
     RETURN QUERY

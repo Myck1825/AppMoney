@@ -18,7 +18,7 @@ AS
 BEGIN
 SET NOCOUNT on;
 SET TRANSACTION ISOLATION LEVEL SERIALIZABLE -- встановив це усвідомленно, так як вважаю що ізольованність в банку має бути на високому рівні, але при цьому буде страждати продуктивність
-BEGIN TRANSACTION [Tran1];  
+BEGIN TRANSACTION [Tran1];
 
 BEGIN TRY
 	

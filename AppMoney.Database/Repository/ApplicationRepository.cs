@@ -1,10 +1,9 @@
-﻿using AppModey.Database.Constants;
-using AppMoney.Database;
-using AppMoney.Database.Entities;
+﻿using AppMoney.Database.Entities;
+using AppMoney.Database.SqlCommandFactory;
 using AppMoney.Respose;
 using AppMoney.Respose.CustomException;
-using AppMoney.Respose.Enums;
 using Dapper;
+using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Logging;
 using System.Data;
 
@@ -14,12 +13,15 @@ namespace AppModey.Database.Repository
     {
         private readonly IDbConnectionFactory _connectionFactory;
         private readonly ILogger<ApplicationRepository> _logger;
+        private readonly ISqlComandFactory _sqlCommandFactory;
 
         public ApplicationRepository(IDbConnectionFactory connectionFactory,
-            ILogger<ApplicationRepository> logger) : base(connectionFactory, logger)
+            ILogger<ApplicationRepository> logger,
+            ISqlComandFactory sqlCommandFactory) : base(connectionFactory, logger)
         {
             _connectionFactory = connectionFactory ?? throw new ArgumentNullException(nameof(connectionFactory));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _sqlCommandFactory = sqlCommandFactory ?? throw new ArgumentNullException(nameof(sqlCommandFactory));
         }
 
         public async Task<DbResult<Guid>> AddAsync(Application entity)
@@ -33,12 +35,12 @@ namespace AppModey.Database.Repository
             parameters.Add("@department_address", entity.DepartmentAddress, DbType.String, ParameterDirection.Input);
             parameters.Add("@amount", entity.Amount, DbType.Decimal, ParameterDirection.Input);
             parameters.Add("@currency", entity.Currency, DbType.String, ParameterDirection.Input);
-            parameters.Add("@id", dbType: DbType.Guid, direction: ParameterDirection.Output);
+            parameters.Add("@appid", dbType: DbType.Guid, direction: ParameterDirection.Output);
             parameters.Add("@error_code", dbType: DbType.Int32, direction: ParameterDirection.Output);
             parameters.Add("@error_message", dbType: DbType.String, size: 100, direction: ParameterDirection.Output);
 
 
-            Guid id = await connection.ExecuteScalarAsync<Guid>(sql: ApplicationStoredProcedure.RegisterApplication,
+            Guid id = await connection.ExecuteScalarAsync<Guid>(sql: _sqlCommandFactory.ApplicationSqlCommand.RegisterApplicationStoredProcedureName,
                 param: parameters, commandType: CommandType.StoredProcedure);
 
             dbResult.SetSuccess(id);
@@ -53,7 +55,7 @@ namespace AppModey.Database.Repository
             parameters.Add("department_address", departmentAddress, DbType.String, ParameterDirection.Input);
 
             var applicationList = await connection.QueryAsync<Application>
-                (ApplicationStoredProcedure.GetApplicationByCliendIdAndDepartementAddress, parameters, commandType: CommandType.StoredProcedure);
+                (_sqlCommandFactory.ApplicationSqlCommand.GetByFilter(), parameters, commandType: CommandType.Text);
 
             dbResult.SetSuccess(applicationList?.ToList() ?? []);
         });
@@ -62,10 +64,10 @@ namespace AppModey.Database.Repository
             => await BaseInvokeAsync<Application>(async (dbResult, connection) =>
         {
             var parameters = new DynamicParameters();
-            parameters.Add("id", id, DbType.Guid, ParameterDirection.Input);
+            parameters.Add("@appId", id, DbType.Guid, ParameterDirection.Input);
 
             var application = await connection.QueryFirstOrDefaultAsync<Application>
-                (ApplicationStoredProcedure.GetApplicationByID, parameters, commandType: CommandType.StoredProcedure);
+                (sql: _sqlCommandFactory.ApplicationSqlCommand.GetById(), param: parameters, commandType: CommandType.Text);
 
             if (application == null)
             {
